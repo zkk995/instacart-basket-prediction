@@ -281,7 +281,7 @@ class TFBaseModel(object):
         date_str = datetime.now().strftime('%Y-%m-%d_%H-%M')
         log_file = 'log_{}.txt'.format(date_str)
 
-        reload(logging)  # bad
+        #reload(logging)  # bad # python 3 has no reload function
         logging.basicConfig(
             filename=os.path.join(log_dir, log_file),
             level=logging.INFO,
