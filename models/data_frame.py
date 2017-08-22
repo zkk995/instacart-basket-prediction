@@ -54,6 +54,7 @@ class DataFrame(object):
         else:  # each feature is saved in a .npy file.
             train_dir, test_dir = mkdir('train'), mkdir('test')
             for i in self.columns:
+                print('load feature {}'.format(i))
                 dat = np.load(os.path.join(data_dir, '{}.npy'.format(i)))
                 np.save(os.path.join(train_dir, '{}.npy'.format(i)), dat[train_idx])
                 np.save(os.path.join(test_dir,  '{}.npy'.format(i)), dat[test_idx] )
