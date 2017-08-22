@@ -82,7 +82,7 @@ class nnmf(TFBaseModel):
 
 if __name__ == '__main__':
     base_dir = './'
-
+    base_dir = os.path.dirname(__file__)
     dr = DataReader(data_dir=os.path.join(base_dir, 'data'))
 
     nnmf = nnmf(
