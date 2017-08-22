@@ -42,25 +42,25 @@ class DataFrame(object):
     def train_test_split(self, train_size, data_dir=None, random_state=np.random.randint(10000)):
         train_idx, test_idx = train_test_split(self.idx, train_size=train_size, random_state=random_state)
 
-		def mkdir(prefix):
-			train_dir = os.path.join(data_dir,'{}_{}_{}'.format(prefix, train_size, random_state))
-			if not os.path.exists(train_dir):
-				os.mkdir(train_dir)
-			return train_dir
+        def mkdir(prefix):
+            train_dir = os.path.join(data_dir,'{}_{}_{}'.format(prefix, train_size, random_state))
+            if not os.path.exists(train_dir):
+                os.mkdir(train_dir)
+            return train_dir
 
-		if data_dir is None:
-        	train_df = DataFrame(copy.copy(self.columns), [mat[train_idx] for mat in self.data])
-        	test_df = DataFrame(copy.copy(self.columns), [mat[test_idx] for mat in self.data])
-		else:  # each feature is saved in a .npy file.
-			train_dir, test_dir = mkdir('train'), mkdir('test')
-        	for i in self.columns:
-            	dat = np.load(os.path.join(data_dir, '{}.npy'.format(i)))
-            	np.save(os.path.join(train_dir, '{}.npy'.format(i)), dat[train_idx])
-            	np.save(os.path.join(test_dir,  '{}.npy'.format(i)), dat[test_idx] )
-			train = [np.load(os.path.join(train_dir, '{}.npy'.format(i)), mmap_mode='r') for i in self.columns]
-			test  = [np.load(os.path.join(test_dir,  '{}.npy'.format(i)), mmap_mode='r') for i in self.columns]
-			train_df = DataFrame(copy.copy(self.columns), train)
-			test_df  = DataFrame(copy.copy(self.columns), test)
+        if data_dir is None:
+            train_df = DataFrame(copy.copy(self.columns), [mat[train_idx] for mat in self.data])
+            test_df = DataFrame(copy.copy(self.columns), [mat[test_idx] for mat in self.data])
+        else:  # each feature is saved in a .npy file.
+            train_dir, test_dir = mkdir('train'), mkdir('test')
+            for i in self.columns:
+                dat = np.load(os.path.join(data_dir, '{}.npy'.format(i)))
+                np.save(os.path.join(train_dir, '{}.npy'.format(i)), dat[train_idx])
+                np.save(os.path.join(test_dir,  '{}.npy'.format(i)), dat[test_idx] )
+            train = [np.load(os.path.join(train_dir, '{}.npy'.format(i)), mmap_mode='r') for i in self.columns]
+            test  = [np.load(os.path.join(test_dir,  '{}.npy'.format(i)), mmap_mode='r') for i in self.columns]
+            train_df = DataFrame(copy.copy(self.columns), train)
+            test_df  = DataFrame(copy.copy(self.columns), test)
 
         return train_df, test_df
 
