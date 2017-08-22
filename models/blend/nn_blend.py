@@ -24,16 +24,16 @@ class DataReader(object):
         df = DataFrame(columns=data_cols, data=data)
         self.data_dim = df['features'].shape[1]
 
-        print df.shapes()
-        print 'loaded data'
+        print(df.shapes())
+        print('loaded data')
 
         self.test_df = df.mask(df['label'] == -1)
         self.train_df = df.mask(df['label'] != -1)
         self.train_df, self.val_df = self.train_df.train_test_split(train_size=0.9)
 
-        print 'train size', len(self.train_df)
-        print 'val size', len(self.val_df)
-        print 'test size', len(self.test_df)
+        print('train size', len(self.train_df))
+        print('val size', len(self.val_df))
+        print('test size', len(self.test_df))
 
         self.feature_means = np.load(os.path.join(data_dir, 'feature_means.npy'))
         self.feature_maxs = np.load(os.path.join(data_dir, 'feature_maxs.npy'))

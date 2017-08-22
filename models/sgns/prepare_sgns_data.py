@@ -11,7 +11,7 @@ if __name__ == '__main__':
     y = []
     for _, row in user_data.iterrows():
         if _ % 10000 == 0:
-            print _
+            print(_)
 
         user_id = row['user_id']
         products = row['product_ids']

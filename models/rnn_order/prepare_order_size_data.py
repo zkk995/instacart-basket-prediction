@@ -30,7 +30,7 @@ if __name__ == '__main__':
     for idx, row in user_data.iterrows():
 
         if idx % 10000 == 0:
-            print idx
+            print(idx)
 
         products = row['product_ids']
         products, next_products = ' '.join(products.split()[:-1]), products.split()[-1]

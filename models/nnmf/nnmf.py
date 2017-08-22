@@ -19,8 +19,8 @@ class DataReader(object):
         df = DataFrame(columns=data_cols, data=data)
         self.train_df, self.val_df = df.train_test_split(train_size=0.9)
 
-        print 'train size', len(self.train_df)
-        print 'val size', len(self.val_df)
+        print('train size', len(self.train_df))
+        print('val size', len(self.val_df))
 
         self.num_users = df['i'].max() + 1
         self.num_products = df['j'].max() + 1

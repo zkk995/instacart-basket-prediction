@@ -65,7 +65,7 @@ if __name__ == '__main__':
 
     for i, row in product_data.iterrows():
         if i % 10000 == 0:
-            print i, num_rows
+            print(i, num_rows)
 
         user_id[i] = row['user_id']
         product_id[i] = row['product_id']

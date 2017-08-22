@@ -32,7 +32,7 @@ if __name__ == '__main__':
 
     for i, row in department_data.iterrows():
         if i % 10000 == 0:
-            print i, num_rows
+            print(i, num_rows)
 
         user_id[i] = row['user_id']
         department_id[i] = row['department_id']

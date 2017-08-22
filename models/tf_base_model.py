@@ -3,7 +3,7 @@ from datetime import datetime
 import logging
 import os
 import pprint as pp
-
+import sys
 import numpy as np
 import tensorflow as tf
 
@@ -98,7 +98,7 @@ class TFBaseModel(object):
 
         self.graph = self.build_graph()
         self.session = tf.Session(graph=self.graph)
-        print 'built graph'
+        logging.info('built graph')
 
     def calculate_loss(self):
         raise NotImplementedError('subclass must implement this')
@@ -125,7 +125,7 @@ class TFBaseModel(object):
             while step < self.num_training_steps:
 
                 # validation evaluation
-                val_batch_df = val_generator.next()
+                val_batch_df = val_generator.next() if sys.version_info.major==2 else next(val_generator)
                 val_feed_dict = {
                     getattr(self, placeholder_name, None): data
                     for placeholder_name, data in val_batch_df if hasattr(self, placeholder_name)
@@ -144,7 +144,7 @@ class TFBaseModel(object):
                 val_loss_history.append(val_loss)
 
                 # train step
-                train_batch_df = train_generator.next()
+                train_batch_df = train_generator.next() if sys.version_info.major==2 else next(train_generator)
                 train_feed_dict = {
                     getattr(self, placeholder_name, None): data
                     for placeholder_name, data in train_batch_df if hasattr(self, placeholder_name)
@@ -216,7 +216,7 @@ class TFBaseModel(object):
             test_generator = self.reader.test_batch_generator(chunk_size)
             for i, test_batch_df in enumerate(test_generator):
                 if i % 100 == 0:
-                    print i*chunk_size
+                    logging.info(i*chunk_size)
 
                 test_feed_dict = {
                     getattr(self, placeholder_name, None): data

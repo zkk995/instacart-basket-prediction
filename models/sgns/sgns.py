@@ -20,8 +20,8 @@ class DataReader(object):
 
         self.train_df, self.val_df = df.train_test_split(train_size=0.9)
 
-        print 'train size', len(self.train_df)
-        print 'val size', len(self.val_df)
+        print('train size', len(self.train_df))
+        print('val size', len(self.val_df))
 
         self.num_products = df['x'].max() + 1
         self.product_dist = np.bincount(self.train_df['x']).tolist()
