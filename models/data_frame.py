@@ -39,7 +39,7 @@ class DataFrame(object):
     def shuffle(self):
         np.random.shuffle(self.idx)
 
-    def train_test_split(self, train_size, data_dir=None, random_state=np.random.randint(10000)):
+    def train_test_split(self, train_size, data_dir=None, random_state=1000):
         train_idx, test_idx = train_test_split(self.idx, train_size=train_size, random_state=random_state)
 
         def mkdir(prefix):
