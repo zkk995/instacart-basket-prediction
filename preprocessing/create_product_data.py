@@ -32,7 +32,7 @@ if __name__ == '__main__':
     longest = 0
     for _, row in df.iterrows():
         if _ % 10000 == 0:
-            print _
+            print(_)
 
         user_id = row['user_id']
         eval_set = row['eval_set']
