@@ -41,7 +41,7 @@ class DataReader(object):
         print( self.test_df.shapes())
         print( 'loaded data')
 
-        self.train_df, self.val_df = self.test_df.train_test_split(train_size=0.9)
+        self.train_df, self.val_df = self.test_df.train_test_split(train_size=0.9, data_dir=data_dir)
 
         print ('train size', len(self.train_df))
         print ('val size', len(self.val_df))
@@ -255,9 +255,9 @@ if __name__ == '__main__':
     #sys.exit(1)
     nn = rnn(
         reader=dr,
-        log_dir=os.path.join(base_dir, 'logs'),
-        checkpoint_dir=os.path.join(base_dir, 'checkpoints'),
-        prediction_dir=os.path.join(base_dir, 'predictions'),
+        log_dir=os.path.join(base_dir, 'logs_v1'),
+        checkpoint_dir=os.path.join(base_dir, 'checkpoints_v1'),
+        prediction_dir=os.path.join(base_dir, 'predictions_v1'),
         optimizer='adam',
         learning_rate=.001,
         lstm_size=300,
