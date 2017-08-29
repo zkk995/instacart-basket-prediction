@@ -38,7 +38,7 @@ if __name__ == '__main__':
         aisle_set = set([int(j) for i in aisles.split() for j in i.split('_')])
         next_aisle_set = set([int(i) for i in next_aisles.split('_')])
 
-        orders = [map(int, i.split('_')) for i in aisles.split()]
+        orders = [list(map(int, i.split('_'))) for i in aisles.split()]
 
         for aisle_id in aisle_set:
 

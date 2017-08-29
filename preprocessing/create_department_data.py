@@ -34,7 +34,7 @@ if __name__ == '__main__':
         department_set = set([int(j) for i in departments.split() for j in i.split('_')])
         next_department_set = set([int(i) for i in next_departments.split('_')])
 
-        orders = [map(int, i.split('_')) for i in departments.split()]
+        orders = [list(map(int, i.split('_'))) for i in departments.split()]
 
         for department_id in department_set:
 
