@@ -40,14 +40,14 @@ if __name__ == '__main__':
         department_id[i] = row['department_id']
         eval_set[i] = row['eval_set']
 
-        is_ordered_history[i, :], history_length[i] = pad_1d(map(int, row['is_ordered_history'].split()), 100)
-        index_in_order_history[i, :], _ = pad_1d(map(int, row['index_in_order_history'].split()), 100)
-        order_size_history[i, :], _ = pad_1d(map(int, row['order_size_history'].split()), 100)
-        order_dow_history[i, :], _ = pad_1d(map(int, row['order_dow_history'].split()), 100)
-        order_hour_history[i, :], _ = pad_1d(map(int, row['order_hour_history'].split()), 100)
-        days_since_prior_order_history[i, :], _ = pad_1d(map(int, row['days_since_prior_order_history'].split()), 100)
-        order_number_history[i, :], _ = pad_1d(map(int, row['order_number_history'].split()), 100)
-        num_products_from_aisle_history[i, :], _ = pad_1d(map(int, row['num_products_from_aisle_history'].split()), 100)
+        is_ordered_history[i, :], history_length[i] = pad_1d(list(map(int, row['is_ordered_history'].split())), 100)
+        index_in_order_history[i, :], _ = pad_1d(list(map(int, row['index_in_order_history'].split())), 100)
+        order_size_history[i, :], _ = pad_1d(list(map(int, row['order_size_history'].split())), 100)
+        order_dow_history[i, :], _ = pad_1d(list(map(int, row['order_dow_history'].split())), 100)
+        order_hour_history[i, :], _ = pad_1d(list(map(int, row['order_hour_history'].split())), 100)
+        days_since_prior_order_history[i, :], _ = pad_1d(list(map(int, row['days_since_prior_order_history'].split())), 100)
+        order_number_history[i, :], _ = pad_1d(list(map(int, row['order_number_history'].split())), 100)
+        num_products_from_aisle_history[i, :], _ = pad_1d(list(map(int, row['num_products_from_aisle_history'].split())), 100)
 
     if not os.path.isdir('data'):
         os.makedirs('data')
