@@ -278,17 +278,13 @@ class TFBaseModel(object):
         if not os.path.isdir(log_dir):
             os.makedirs(log_dir)
 
-        date_str = datetime.now().strftime('%Y-%m-%d_%H-%M')
-        log_file = 'log_{}.txt'.format(date_str)
-
-        #reload(logging)  # bad # python 3 has no reload function
+        log_file = os.path.join(log_dir,'log_{}.txt').format(datetime.now().strftime('%Y-%m-%d_%H-%M'))
         logging.basicConfig(
-            filename=os.path.join(log_dir, log_file),
-            level=logging.INFO,
-            format='[[%(asctime)s]] %(message)s',
-            datefmt='%m/%d/%Y %I:%M:%S %p'
+            level   = logging.INFO,
+            handlers= [logging.StreamHandler(), logging.FileHandler(log_file)],
+            format  = '[%(asctime)s] %(levelname)s (%(filename)s:%(lineno)d) %(message)s', 
+            datefmt = '%y-%m-%d %H:%M:%S' 
         )
-        logging.getLogger().addHandler(logging.StreamHandler())
 
     def update_parameters(self, loss):
         self.global_step = tf.Variable(0, trainable=False)

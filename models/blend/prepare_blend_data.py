@@ -1,5 +1,5 @@
 import os
-
+import gc
 import numpy as np
 import pandas as pd
 
@@ -30,6 +30,7 @@ user_emb_df = pd.DataFrame(nnmf_u_matrix, columns=['nnmf_user_{}'.format(i) for 
 user_emb_df['user_id'] = np.arange(nnmf_u_matrix.shape[0])
 product_df = product_df.merge(user_emb_df, how='left', on='user_id')
 
+del sgns_matrix, product_emb_df, nnmf_u_matrix, user_emb_df, orders
 prefix = 'rnn_product'
 print(prefix)
 h_df = pd.DataFrame(np.load('../rnn_product/predictions/final_states.npy')).add_prefix('{}_h'.format(prefix))
@@ -68,12 +69,15 @@ h_df['user_id'] = np.load('../rnn_order/predictions/user_ids.npy')
 h_df['{}_prediction'.format(prefix)] = np.load('../rnn_order/predictions/predictions.npy')
 product_df = product_df.merge(h_df, how='left', on='user_id')
 
+product_df.to_pickle('product_df.pkl')
 prefix = 'rnn_order_size_gmm'
 print(prefix)
 h_df = pd.DataFrame(np.load('../rnn_order/predictions_gmm/final_states.npy')).add_prefix('{}_h'.format(prefix))
 h_df['user_id'] = np.load('../rnn_order/predictions_gmm/user_ids.npy')
 product_df = product_df.merge(h_df, how='left', on='user_id')
-
+del h_df
+gc.collect()
+print('save product_df')
 
 drop_cols = [
     'label',
