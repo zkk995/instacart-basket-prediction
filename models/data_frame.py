@@ -56,8 +56,9 @@ class DataFrame(object):
             for i in self.columns:
                 print('load feature {}'.format(i))
                 dat = np.load(os.path.join(data_dir, '{}.npy'.format(i)))
-                np.save(os.path.join(train_dir, '{}.npy'.format(i)), dat[train_idx])
-                np.save(os.path.join(test_dir,  '{}.npy'.format(i)), dat[test_idx] )
+                if not os.path.exists(os.path.join(train_dir, '{}.npy'.format(i))): 
+                    np.save(os.path.join(train_dir, '{}.npy'.format(i)), dat[train_idx])
+                    np.save(os.path.join(test_dir,  '{}.npy'.format(i)), dat[test_idx] )
             train = [np.load(os.path.join(train_dir, '{}.npy'.format(i)), mmap_mode='r') for i in self.columns]
             test  = [np.load(os.path.join(test_dir,  '{}.npy'.format(i)), mmap_mode='r') for i in self.columns]
             train_df = DataFrame(copy.copy(self.columns), train)
